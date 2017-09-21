@@ -12,8 +12,6 @@ var currentLayer = docRef.layers;
           
 ok.onClick = function(){
 	docRef.activeLayer.name = fileName;
-}
-	
 	myDialog.close()
 }
 cancel.onClick = function(){
