@@ -14,19 +14,28 @@ function createDocument(docWidth, docHeight, type){
 
     var myDocument = app.documents.add();  
     with(myDocument.documentPreferences){
-        if(type == "digital"){
-            type = "px";
-        } else {
-            type = "mm";
+        typeFinder(type);
+        
+        if(type == "mm"){
             documentBleedUniformSize = true;
             documentBleedTopOffset = bleedFinder(docWidth);
-        }  
-
+        }
+        
         pageHeight = docHeight + type;  
         pageWidth = docWidth + type;  
         pagesPerDocument = 1;
         facingPages = false;
     }
+}
+
+//type finder
+function typeFinder(type){
+    if(type == "digital"){
+        type = "px";
+    } else {
+        type = "mm";
+    }
+    return type
 }
 
 // bleed finder
