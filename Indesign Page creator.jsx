@@ -13,8 +13,8 @@ function saveDoc (width, height, type) {
 function createDocument(docWidth, docHeight, type){
 
     var myDocument = app.documents.add();
-    typeFinder(type);
-        
+    type = typeFinder(type);
+
     with(myDocument.documentPreferences){
         if(type == "mm"){
             documentBleedUniformSize = true;
@@ -32,10 +32,11 @@ function createDocument(docWidth, docHeight, type){
 function typeFinder(type){
     if(type == "digital"){
         type = "px";
+        return type
     } else {
         type = "mm";
+	return type
     }
-    return type
 }
 
 // bleed finder
