@@ -12,10 +12,10 @@ function saveDoc (width, height, type) {
 
 function createDocument(docWidth, docHeight, type){
 
-    var myDocument = app.documents.add();  
-    with(myDocument.documentPreferences){
-        typeFinder(type);
+    var myDocument = app.documents.add();
+    typeFinder(type);
         
+    with(myDocument.documentPreferences){
         if(type == "mm"){
             documentBleedUniformSize = true;
             documentBleedTopOffset = bleedFinder(docWidth);
