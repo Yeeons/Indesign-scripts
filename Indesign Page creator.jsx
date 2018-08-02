@@ -1,12 +1,21 @@
-function saveDoc (width, height, type) {
+function saveDoc (width, height, type, campaign, asset_no) {
     var userFolder = (Folder.myDocuments);
     var folderPath = userFolder + "/" + "name";
-    var filePath = folderPath + "/" + width + "x" + height + type +".indd";
-    if (Folder(filePath).exists == false) {
+    type = typeFinder(type);
+
+    if (asset_no == ""){
+        asset_no = "NoNumber";
+    }
+
+    var filePath = folderPath + "/" + asset_no + "_" + campaign + "_" + width + "x" + height + type +".indd";
+    
+	if (Folder(filePath).exists == false) {
         Folder(folderPath).create();
     }
-     app.documents.add.label = "name";
-     app.activeDocument.save(new File(filePath));   
+    
+    app.documents.add.label = "name";
+    app.activeDocument.save(new File(filePath));
+    app.activeDocument.close(); 
 }
 
 
@@ -19,8 +28,9 @@ function createDocument(docWidth, docHeight, type){
         if(type == "mm"){
             documentBleedUniformSize = true;
             documentBleedTopOffset = bleedFinder(docWidth);
+        } else {
+            intent = 1768846455;
         }
-        
         pageHeight = docHeight + type;  
         pageWidth = docWidth + type;  
         pagesPerDocument = 1;
@@ -28,9 +38,9 @@ function createDocument(docWidth, docHeight, type){
     }
 }
 
-//type finder
+//type finder - works out if the document is digital or print
 function typeFinder(type){
-    if(type == "digital"){
+    if(type == "Digital"){
         type = "px";
         return type
     } else {
@@ -50,5 +60,13 @@ function bleedFinder(docWidth){
 }
 
 
-createDocument(400, 100, "print");
-saveDoc(400, 100, "print");
+
+// file creator - combines the save and creation part
+function fileCreator(width, height, type, campaign, asset_no){
+    x = createDocument(width, height, type);
+    y = saveDoc(width, height, type, campaign, asset_no);
+}
+
+//Content here
+
+fileCreator(531.2, 801.2, "Print", "Monopoly Generic", "AUG_001");
