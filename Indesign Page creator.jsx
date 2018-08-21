@@ -1,8 +1,11 @@
+// File saver
 function saveDoc (width, height, type, campaign, asset_no) {
+    
     var userFolder = (Folder.myDocuments);
     var folderPath = userFolder + "/" + "name";
     type = typeFinder(type);
-
+    
+    // Checks to see if a job number has been alocated
     if (asset_no == ""){
         asset_no = "NoNumber";
     }
@@ -18,7 +21,7 @@ function saveDoc (width, height, type, campaign, asset_no) {
     app.activeDocument.close(); 
 }
 
-
+// Document creator
 function createDocument(docWidth, docHeight, type){
 
     var myDocument = app.documents.add();
@@ -58,8 +61,6 @@ function bleedFinder(docWidth){
     }
     return bleed;
 }
-
-
 
 // file creator - combines the save and creation part
 function fileCreator(width, height, type, campaign, asset_no){
