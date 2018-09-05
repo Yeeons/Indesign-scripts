@@ -1,0 +1,21 @@
+var i = 0;
+
+PdfExportSetting = app.pdfExportPresets.itemByName("Proof"); 
+
+app.pngExportPreferences.pngExportRange = PNGExportRangeEnum.EXPORT_RANGE;
+app.pngExportPreferences.pageString = "1";
+
+while (i < app.documents.length){
+    var myDoc = app.documents[i];
+    var myFile = myDoc.name.split(".");
+    myDoc.exportFile(ExportFormat.PDF_TYPE, new File( myDoc.filePath + "/" + "/PDF" + "/" + myFile[0] +".pdf"), false, PdfExportSetting);
+       
+    var nameChecker = myFile[0].split("_");
+    var version = nameChecker[1];
+    
+    if (version === "R1"){
+        myDoc.exportFile(ExportFormat.PNG_FORMAT, new File( myDoc.filePath + "/" + "/PDF" + "/" + myFile[0] +".png"), false);
+    }
+    
+    i++;
+}
